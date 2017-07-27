@@ -1,0 +1,540 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html>
+<script src="/angular.min.js"></script>
+<style>
+	h1{
+		color: #004d1a;
+		font-size: 50px;
+	}
+	h2{
+		color: #1aad1a;
+		font-size: 40px;
+		text-align: center;
+	}
+	body{
+		background-color: rgba(192,192,192,0.34);
+		font-family: "Bank Gothic", "Futura", "Arial";
+		text-align: center;
+	}
+	button{
+		width: 70px;
+		height: 70px;
+		margin: 3px;
+		padding: 0;
+		background-color: 	rgba(0, 0, 0, 0.2);
+		font-size: 37px;
+		font-weight: bold;
+		color: #333;
+		border: 0;
+		border-radius: 20px;
+	}
+	buttonPlayer{
+		width: 100px;
+		height: 70px;
+		margin: 3px;
+		padding: 5px;
+		background-color: 	rgba(500, 100, 90, 50.2);
+		font-size: 37px;
+		color: #333;
+		border: 10;
+		border-radius: 10px;
+	}
+	th{
+		padding: 5px;
+	}
+	p{
+		color: #333; 
+		font-size: 20px;
+		padding: 0px;
+	}
+	p2{
+		color: #1aad1a;
+		font-size: 22px;
+		text-align: center;
+	}
+	.center {
+		padding-top: 5%;
+		margin: auto;
+		text-align: center;
+	}
+	.left {
+		position: absolute;
+		left: 100px;
+		padding: 10px;
+		padding-top: 5%;
+		margin: auto;
+		text-align: center;
+	}
+	.right {
+		position: absolute;
+		right: 100px;
+		padding: 10px;
+		padding-top: 5%;
+		margin: auto;
+		text-align: center;
+	}
+	.divGame{
+		
+		box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+		-moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+		-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+	}
+	.table{
+		width: auto;
+		box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+		-moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+		-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+	}
+	
+</style>
+<body>
+<div ng-app="myApp"  ng-controller="myCtrl">
+	<h1>Tic Tac Toe</h1>
+	<br />
+	<div>
+		
+		<table class="left">
+			<tl><tr> <th></th><th><p2>Leaders Board</p2></th></tr></tl>
+			<tl><tr> <th><p>Rank</p></th><th><p>Leader</p></th><th><p>Wins</p></th></tr></tl>
+			<tl><tr> <td>{{leadersIn[0]}}</td><td>{{leaders[0]}}</td><td>{{leadersW[0]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[1]}}</td><td>{{leaders[1]}}</td><td>{{leadersW[1]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[2]}}</td><td>{{leaders[2]}}</td><td>{{leadersW[2]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[3]}}</td><td>{{leaders[3]}}</td><td>{{leadersW[3]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[4]}}</td><td>{{leaders[4]}}</td><td>{{leadersW[4]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[5]}}</td><td>{{leaders[5]}}</td><td>{{leadersW[5]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[6]}}</td><td>{{leaders[6]}}</td><td>{{leadersW[6]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[7]}}</td><td>{{leaders[7]}}</td><td>{{leadersW[7]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[8]}}</td><td>{{leaders[8]}}</td><td>{{leadersW[8]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[9]}}</td><td>{{leaders[9]}}</td><td>{{leadersW[9]}}</td></tr></tl>
+		</table>
+		
+		<table class = "right">
+			<tr><td><p> Click to change player</p></td></tr>
+			<tr><td><buttonPlayer ng-click="playerInsert(1)" >{{player1}}</buttonPlayer></td></tr>
+			<tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
+			<tr><td><buttonPlayer ng-click="playerInsert(2)" >{{player2}}</buttonPlayer></td></tr>
+		</table>
+
+		<table class="center" + "divGame">
+			<tr>
+				<td><button ng-click="myFunction(0)" >{{arr[0]}}</button></td>
+				<td><button ng-click="myFunction(1)" >{{arr[1]}}</button></td>
+				<td><button ng-click="myFunction(2)" >{{arr[2]}}</button></td>	
+			</tr>
+			<tr>
+				<td><button ng-click="myFunction(3)" >{{arr[3]}}</button></td>
+				<td><button ng-click="myFunction(4)" >{{arr[4]}}</button></td>
+				<td><button ng-click="myFunction(5)" >{{arr[5]}}</button></td>
+			</tr>
+			<tr>
+				<td><button ng-click="myFunction(6)" >{{arr[6]}}</button></td>
+				<td><button ng-click="myFunction(7)" >{{arr[7]}}</button></td>
+				<td><button ng-click="myFunction(8)" >{{arr[8]}}</button></td>
+			</tr>	
+		</table>
+
+	</div>
+<p>{{ vh }}</p>
+</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+    $scope.count = 0;
+    $scope.vh = 'game on';
+	$scope.arr = [];
+	$scope.arr_sum = [];
+	$scope.leaders = [];
+	$scope.leadersW = [];
+	$scope.leadersIn = [];
+	$scope.player1 = prompt("Please enter your name","Player 1");
+	$scope.player2 = prompt("Please enter your name","Player 2");
+
+	resetBoard = function(){
+		$scope.arr = [];
+		$scope.arr_sum = [];
+		$scope.count = 0;
+		$scope.vh = 'game on';
+		var temp = $scope.player1;
+		$scope.player1 = $scope.player2;
+		$scope.player2 = temp;
+		alert("Players Order changed.");
+	}
+
+	var req = {
+				method: 'POST',
+				url:'http://127.0.0.1:3000/start',
+				headers:'Access-Control-Allow-Origin' ,
+				body: 'BODY'
+	}
+
+	$http(req).
+		then(function(data){
+			updateLeaders(data.data)},
+		function(){console.log('failed')});
+
+	updateLeaders=function(data){
+		for(var ex in data){
+			$scope.leaders[ex] = data[ex].name;
+			$scope.leadersW[ex] = data[ex].wins;
+			$scope.leadersIn[ex] = parseInt(ex) +1+':';
+		}
+	}
+	checkWinner=function(){
+		if(($scope.arr_sum[0]+$scope.arr_sum[1]+$scope.arr_sum[2])===3 || ($scope.arr_sum[3]+$scope.arr_sum[4]+$scope.arr_sum[5])===3 || ($scope.arr_sum[6]+$scope.arr_sum[7]+$scope.arr_sum[8])===3 ||($scope.arr_sum[0]+$scope.arr_sum[3]+$scope.arr_sum[6])===3||($scope.arr_sum[1]+$scope.arr_sum[4]+$scope.arr_sum[7])===3||($scope.arr_sum[2]+$scope.arr_sum[5]+$scope.arr_sum[8])===3||($scope.arr_sum[0]+$scope.arr_sum[4]+$scope.arr_sum[8])===3||($scope.arr_sum[2]+$scope.arr_sum[4]+$scope.arr_sum[6])===3)
+		{
+			var newPlayerPost = {"name":$scope.player1, "type":"win_player"}		
+			var req = {
+				method: 'POST',
+				url:'http://127.0.0.1:3000/st?player='+$scope.player1,
+				headers:'Access-Control-Allow-Origin' ,
+				body: 'BODY'
+			}
+
+			$http(req).
+			then(function(data){
+				updateLeaders(data.data)},
+				function(){console.log('failed')});
+			return 1;
+			
+		}
+		if(($scope.arr_sum[0]+$scope.arr_sum[1]+$scope.arr_sum[2])===-3||($scope.arr_sum[3]+$scope.arr_sum[4]+$scope.arr_sum[5])===-3||($scope.arr_sum[6]+$scope.arr_sum[7]+$scope.arr_sum[8])===-3||($scope.arr_sum[0]+$scope.arr_sum[3]+$scope.arr_sum[6])===-3||($scope.arr_sum[1]+$scope.arr_sum[4]+$scope.arr_sum[7])===-3||($scope.arr_sum[2]+$scope.arr_sum[5]+$scope.arr_sum[8])===-3||($scope.arr_sum[0]+$scope.arr_sum[4]+$scope.arr_sum[8])===-3||($scope.arr_sum[2]+$scope.arr_sum[4]+$scope.arr_sum[6])===-3)
+		{
+			var newPlayerPost = {"name":$scope.player2, "type":"win_player"}		
+			var req = {
+				method: 'POST',
+				url:'http://127.0.0.1:3000/st?player='+$scope.player2,
+				headers:'Access-Control-Allow-Origin' ,
+				body: 'BODY'
+			}
+
+			$http(req).
+			then(function(data){
+				updateLeaders(data.data)},
+				function(){console.log('failed')});
+				return 2;
+		}
+		return 0;		
+	}
+	$scope.playerInsert = function(index){
+		if(index===1){
+			$scope.player1 = prompt("Please enter your name",$scope.player1);
+		}else{
+			$scope.player2 = prompt("Please enter your name",$scope.player2);
+		}
+	}
+	$scope.myFunction=function(index){
+		$scope.count++;
+		if($scope.arr_sum[index]!=1 && $scope.arr_sum[index]!=-1){
+			if($scope.count%2===0){
+				$scope.arr[index]='o';
+				$scope.arr_sum[index]=-1;
+				$scope.vh = $scope.player1 + '\'s turn';
+			}else{
+				$scope.arr[index]='x';
+				$scope.arr_sum[index]=1;
+				$scope.vh = $scope.player2 + '\'s turn';
+			}
+			
+			var res = checkWinner();
+			switch(res){
+				case 1:
+				alert($scope.player1 + " WON!");
+				$scope.vh = "player 1 wins";
+				resetBoard();
+				break;
+				case 2:
+				alert($scope.player2 + " WON!");
+				$scope.vh = "player 2 wins";
+				resetBoard();
+				break;
+				case 0:
+				if($scope.count===9){
+					alert("it's a TIE");
+					$scope.vh = "tie";
+					resetBoard();
+				}
+				break;
+			}
+		}
+		else{
+			$scope.count--;
+			alert('Choose another tile.');
+		}
+	}
+	
+});
+</script> 
+
+</body>
+=======
+<!DOCTYPE html>
+<html>
+<script src="/angular.min.js"></script>
+<style>
+	h1{
+		color: #004d1a;
+		font-size: 50px;
+	}
+	h2{
+		color: #1aad1a;
+		font-size: 40px;
+		text-align: center;
+	}
+	body{
+		background-color: rgba(192,192,192,0.34);
+		font-family: "Bank Gothic", "Futura", "Arial";
+		text-align: center;
+	}
+	button{
+		width: 70px;
+		height: 70px;
+		margin: 3px;
+		padding: 0;
+		background-color: 	rgba(0, 0, 0, 0.2);
+		font-size: 37px;
+		font-weight: bold;
+		color: #333;
+		border: 0;
+		border-radius: 20px;
+	}
+	buttonPlayer{
+		width: 100px;
+		height: 70px;
+		margin: 3px;
+		padding: 5px;
+		background-color: 	rgba(500, 100, 90, 50.2);
+		font-size: 37px;
+		color: #333;
+		border: 10;
+		border-radius: 10px;
+	}
+	th{
+		padding: 5px;
+	}
+	p{
+		color: #333; 
+		font-size: 20px;
+		padding: 0px;
+	}
+	p2{
+		color: #1aad1a;
+		font-size: 22px;
+		text-align: center;
+	}
+	.center {
+		padding-top: 5%;
+		margin: auto;
+		text-align: center;
+	}
+	.left {
+		position: absolute;
+		left: 100px;
+		padding: 10px;
+		padding-top: 5%;
+		margin: auto;
+		text-align: center;
+	}
+	.right {
+		position: absolute;
+		right: 100px;
+		padding: 10px;
+		padding-top: 5%;
+		margin: auto;
+		text-align: center;
+	}
+	.divGame{
+		
+		box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+		-moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+		-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+	}
+	.table{
+		width: auto;
+		box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+		-moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+		-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+	}
+	
+</style>
+<body>
+<div ng-app="myApp"  ng-controller="myCtrl">
+	<h1>Tic Tac Toe</h1>
+	<br />
+	<div>
+		
+		<table class="left">
+			<tl><tr> <th></th><th><p2>Leaders Board</p2></th></tr></tl>
+			<tl><tr> <th><p>Rank</p></th><th><p>Leader</p></th><th><p>Wins</p></th></tr></tl>
+			<tl><tr> <td>{{leadersIn[0]}}</td><td>{{leaders[0]}}</td><td>{{leadersW[0]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[1]}}</td><td>{{leaders[1]}}</td><td>{{leadersW[1]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[2]}}</td><td>{{leaders[2]}}</td><td>{{leadersW[2]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[3]}}</td><td>{{leaders[3]}}</td><td>{{leadersW[3]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[4]}}</td><td>{{leaders[4]}}</td><td>{{leadersW[4]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[5]}}</td><td>{{leaders[5]}}</td><td>{{leadersW[5]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[6]}}</td><td>{{leaders[6]}}</td><td>{{leadersW[6]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[7]}}</td><td>{{leaders[7]}}</td><td>{{leadersW[7]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[8]}}</td><td>{{leaders[8]}}</td><td>{{leadersW[8]}}</td></tr></tl>
+			<tl><tr> <td>{{leadersIn[9]}}</td><td>{{leaders[9]}}</td><td>{{leadersW[9]}}</td></tr></tl>
+		</table>
+		
+		<table class = "right">
+			<tr><td><p> Click to change player</p></td></tr>
+			<tr><td><buttonPlayer ng-click="playerInsert(1)" >{{player1}}</buttonPlayer></td></tr>
+			<tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
+			<tr><td><buttonPlayer ng-click="playerInsert(2)" >{{player2}}</buttonPlayer></td></tr>
+		</table>
+
+		<table class="center" + "divGame">
+			<tr>
+				<td><button ng-click="myFunction(0)" >{{arr[0]}}</button></td>
+				<td><button ng-click="myFunction(1)" >{{arr[1]}}</button></td>
+				<td><button ng-click="myFunction(2)" >{{arr[2]}}</button></td>	
+			</tr>
+			<tr>
+				<td><button ng-click="myFunction(3)" >{{arr[3]}}</button></td>
+				<td><button ng-click="myFunction(4)" >{{arr[4]}}</button></td>
+				<td><button ng-click="myFunction(5)" >{{arr[5]}}</button></td>
+			</tr>
+			<tr>
+				<td><button ng-click="myFunction(6)" >{{arr[6]}}</button></td>
+				<td><button ng-click="myFunction(7)" >{{arr[7]}}</button></td>
+				<td><button ng-click="myFunction(8)" >{{arr[8]}}</button></td>
+			</tr>	
+		</table>
+
+	</div>
+<p>{{ vh }}</p>
+</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+    $scope.count = 0;
+    $scope.vh = 'game on';
+	$scope.arr = [];
+	$scope.arr_sum = [];
+	$scope.leaders = [];
+	$scope.leadersW = [];
+	$scope.leadersIn = [];
+	$scope.player1 = prompt("Please enter your name","Player 1");
+	$scope.player2 = prompt("Please enter your name","Player 2");
+
+	resetBoard = function(){
+		$scope.arr = [];
+		$scope.arr_sum = [];
+		$scope.count = 0;
+		$scope.vh = 'game on';
+		var temp = $scope.player1;
+		$scope.player1 = $scope.player2;
+		$scope.player2 = temp;
+		alert("Players Order changed.");
+	}
+
+	var req = {
+				method: 'POST',
+				url:'http://127.0.0.1:3000/start',
+				headers:'Access-Control-Allow-Origin' ,
+				body: 'BODY'
+	}
+
+	$http(req).
+		then(function(data){
+			updateLeaders(data.data)},
+		function(){console.log('failed')});
+
+	updateLeaders=function(data){
+		for(var ex in data){
+			$scope.leaders[ex] = data[ex].name;
+			$scope.leadersW[ex] = data[ex].wins;
+			$scope.leadersIn[ex] = parseInt(ex) +1+':';
+		}
+	}
+	checkWinner=function(){
+		if(($scope.arr_sum[0]+$scope.arr_sum[1]+$scope.arr_sum[2])===3 || ($scope.arr_sum[3]+$scope.arr_sum[4]+$scope.arr_sum[5])===3 || ($scope.arr_sum[6]+$scope.arr_sum[7]+$scope.arr_sum[8])===3 ||($scope.arr_sum[0]+$scope.arr_sum[3]+$scope.arr_sum[6])===3||($scope.arr_sum[1]+$scope.arr_sum[4]+$scope.arr_sum[7])===3||($scope.arr_sum[2]+$scope.arr_sum[5]+$scope.arr_sum[8])===3||($scope.arr_sum[0]+$scope.arr_sum[4]+$scope.arr_sum[8])===3||($scope.arr_sum[2]+$scope.arr_sum[4]+$scope.arr_sum[6])===3)
+		{
+			var newPlayerPost = {"name":$scope.player1, "type":"win_player"}		
+			var req = {
+				method: 'POST',
+				url:'http://127.0.0.1:3000/st?player='+$scope.player1,
+				headers:'Access-Control-Allow-Origin' ,
+				body: 'BODY'
+			}
+
+			$http(req).
+			then(function(data){
+				updateLeaders(data.data)},
+				function(){console.log('failed')});
+			return 1;
+			
+		}
+		if(($scope.arr_sum[0]+$scope.arr_sum[1]+$scope.arr_sum[2])===-3||($scope.arr_sum[3]+$scope.arr_sum[4]+$scope.arr_sum[5])===-3||($scope.arr_sum[6]+$scope.arr_sum[7]+$scope.arr_sum[8])===-3||($scope.arr_sum[0]+$scope.arr_sum[3]+$scope.arr_sum[6])===-3||($scope.arr_sum[1]+$scope.arr_sum[4]+$scope.arr_sum[7])===-3||($scope.arr_sum[2]+$scope.arr_sum[5]+$scope.arr_sum[8])===-3||($scope.arr_sum[0]+$scope.arr_sum[4]+$scope.arr_sum[8])===-3||($scope.arr_sum[2]+$scope.arr_sum[4]+$scope.arr_sum[6])===-3)
+		{
+			var newPlayerPost = {"name":$scope.player2, "type":"win_player"}		
+			var req = {
+				method: 'POST',
+				url:'http://127.0.0.1:3000/st?player='+$scope.player2,
+				headers:'Access-Control-Allow-Origin' ,
+				body: 'BODY'
+			}
+
+			$http(req).
+			then(function(data){
+				updateLeaders(data.data)},
+				function(){console.log('failed')});
+				return 2;
+		}
+		return 0;		
+	}
+	$scope.playerInsert = function(index){
+		if(index===1){
+			$scope.player1 = prompt("Please enter your name",$scope.player1);
+		}else{
+			$scope.player2 = prompt("Please enter your name",$scope.player2);
+		}
+	}
+	$scope.myFunction=function(index){
+		$scope.count++;
+		if($scope.arr_sum[index]!=1 && $scope.arr_sum[index]!=-1){
+			if($scope.count%2===0){
+				$scope.arr[index]='o';
+				$scope.arr_sum[index]=-1;
+				$scope.vh = $scope.player1 + '\'s turn';
+			}else{
+				$scope.arr[index]='x';
+				$scope.arr_sum[index]=1;
+				$scope.vh = $scope.player2 + '\'s turn';
+			}
+			
+			var res = checkWinner();
+			switch(res){
+				case 1:
+				alert($scope.player1 + " WON!");
+				$scope.vh = "player 1 wins";
+				resetBoard();
+				break;
+				case 2:
+				alert($scope.player2 + " WON!");
+				$scope.vh = "player 2 wins";
+				resetBoard();
+				break;
+				case 0:
+				if($scope.count===9){
+					alert("it's a TIE");
+					$scope.vh = "tie";
+					resetBoard();
+				}
+				break;
+			}
+		}
+		else{
+			$scope.count--;
+			alert('Choose another tile.');
+		}
+	}
+	
+});
+</script> 
+
+</body>
+>>>>>>> 86533c26dcaccf464ce58becbd2f176ffc2cd30c
+</html>
